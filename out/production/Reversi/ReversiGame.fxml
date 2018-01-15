@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ReversiGame">
+   <top>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Accordion />
+         </children>
+      </HBox>
+   </top>
+   <right>
+      <VBox prefHeight="400.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#FileButtonClicked" prefHeight="35.0" prefWidth="69.0" text="File" VBox.vgrow="ALWAYS">
+               <graphic>
+                  <Button fx:id="setting" mnemonicParsing="false" onAction="#SettingButtonClicked" prefHeight="34.0" prefWidth="79.0" text="Setting" visible="false" />
+               </graphic>
+            </Button>
+            <TextField prefHeight="39.0" prefWidth="150.0" text="Current Player:" VBox.vgrow="ALWAYS" />
+            <TextField layoutX="10.0" layoutY="10.0" prefHeight="39.0" prefWidth="150.0" text="Black PLayer Score:" VBox.vgrow="ALWAYS" />
+            <TextField layoutX="10.0" layoutY="49.0" prefHeight="39.0" prefWidth="150.0" text="White PLayer Score:" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </right>
+</BorderPane>

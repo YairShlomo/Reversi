@@ -1,3 +1,6 @@
+import javafx.scene.paint.Color;
+
+import java.awt.*;
 import java.util.List;
 
 /*
@@ -14,6 +17,9 @@ public interface Player {
     boolean checkNextTurn(GameLogic logic);
 
     Point yourPlay(List<Point> pointList);
+    public void setColor(Color color);
+    public javafx.scene.paint.Color getColor();
+
 
 }
 

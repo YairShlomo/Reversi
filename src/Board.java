@@ -90,7 +90,7 @@ public class Board {
         return colCount;
     }
 
-    public char[][] getBoard() {
+    public char[][] getGameBoard() {
         return gameBoard;
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -7,24 +8,31 @@
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ReversiGame">
    <top>
-      <HBox BorderPane.alignment="CENTER">
-         <children>
-            <Accordion />
-         </children>
-      </HBox>
+      <HBox BorderPane.alignment="CENTER" />
    </top>
    <right>
-      <VBox prefHeight="400.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="menu" prefHeight="400.0" prefWidth="157.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#FileButtonClicked" prefHeight="35.0" prefWidth="69.0" text="File" VBox.vgrow="ALWAYS">
-               <graphic>
-                  <Button fx:id="setting" mnemonicParsing="false" onAction="#SettingButtonClicked" prefHeight="34.0" prefWidth="79.0" text="Setting" visible="false" />
-               </graphic>
+            <Button fx:id="settingButt" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#settingButtonClicked" prefHeight="36.0" prefWidth="157.0" text="     Game Setting" textAlignment="RIGHT" textOverrun="CLIP" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </Button>
-            <TextField prefHeight="39.0" prefWidth="150.0" text="Current Player:" VBox.vgrow="ALWAYS" />
-            <TextField layoutX="10.0" layoutY="10.0" prefHeight="39.0" prefWidth="150.0" text="Black PLayer Score:" VBox.vgrow="ALWAYS" />
-            <TextField layoutX="10.0" layoutY="49.0" prefHeight="39.0" prefWidth="150.0" text="White PLayer Score:" VBox.vgrow="ALWAYS" />
+            <Label fx:id="currPlayer" prefHeight="27.0" prefWidth="175.0" text="BlackIsStarting:">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <Label fx:id="blackScore" layoutX="10.0" layoutY="302.0" prefHeight="23.0" prefWidth="167.0" text="Black Player Score:" />
+            <Label fx:id="whiteScore" layoutX="10.0" layoutY="396.0" prefHeight="35.0" prefWidth="174.0" text="White Player Score:" />
+            <Button mnemonicParsing="false" onAction="#startButtonClicked" prefHeight="40.0" prefWidth="172.0" text="Start Game" />
          </children>
       </VBox>
    </right>
+   <center>
+      <Region prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>

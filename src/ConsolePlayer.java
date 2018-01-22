@@ -4,11 +4,16 @@ ID: 308536150
 Name:Gal Eini
 ID: 305216962
 */
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+
+import java.awt.*;
 import java.util.List;
 import java.util.Scanner;
 
 public class ConsolePlayer implements Player{
     private char sign;
+    private Color color;
     public ConsolePlayer(char signCp){
         sign=signCp;
     }
@@ -59,6 +64,10 @@ public class ConsolePlayer implements Player{
         return true;
     }
 
-
-
+    public void setColor(Color color) {
+        this.color = color;
+    }
+    public Color getColor() {
+        return this.color;
+    }
 }

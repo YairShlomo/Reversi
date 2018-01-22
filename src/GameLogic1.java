@@ -17,7 +17,7 @@ public class GameLogic1  implements GameLogic {
         rowCount = board1.getSizeX();
         colCount = board1.getSizeY();
         board = board1;
-        gameBoard = board1.getBoard();
+        gameBoard = board1.getGameBoard();
     }
 
     public char oppositeSign(char sign) {

@@ -6,13 +6,13 @@ import java.lang.reflect.Field;
 
 public class GameSetting {
 
-    private int boardSize = 8;
-    private Color playerAColor = Color.BLACK;
-    private Color playerBColor = Color.YELLOW;
-    private boolean blackTurn = true;
+    private int boardSize;
+    private Color playerAColor;
+    private Color playerBColor;
+    private boolean blackTurn;
     private File fileSetting;
     public  GameSetting(){
-        fileSetting = new File("settings.txt");
+        fileSetting = new File("setting.txt");
 
     }
 

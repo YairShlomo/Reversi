@@ -225,9 +225,21 @@ f            posMoves = this.game.possibleMoves(this.game.getCurPlayer());
         inGame=false;
         gameSetting=new GameSetting();
         try {
+            
             gameSetting.readFromFIle();
         } catch (Exception e) {
-            e.printStackTrace();
+
+            if (e instanceof java.io.FileNotFoundException) {
+                try {
+                    gameSetting.writeToSettings(8,Color.BLACK, Color.YELLOW,true);
+                    gameSetting.readFromFIle();
+                } catch (Exception e1) {
+
+                    e.printStackTrace();
+                }
+            }else{
+                e.printStackTrace();
+            }
         }
         board=new Board(gameSetting.getBoardSize(),gameSetting.getBoardSize());
 

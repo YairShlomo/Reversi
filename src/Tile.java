@@ -8,9 +8,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.util.Pair;
 
-/**
- * Created by Eilon on 1/13/2018.
- */
+
 public class Tile extends StackPane{
     private Circle circle;
     private Point location;

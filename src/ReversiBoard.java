@@ -26,6 +26,9 @@ public class ReversiBoard extends GridPane {
     private Tile[][] tiles;
     private List<Point> avaiableMoves;
     private Point p;
+    private double heightCell;
+    private double widthCell;
+    private int size;
     //private Player player;
 
 
@@ -34,9 +37,9 @@ public class ReversiBoard extends GridPane {
         this.board = game.getBoard().getGameBoard();
         this.setPrefWidth(width);
         this.setPrefHeight(height);
-        int size = this.game.getBoard().getSizeX();
-        double heightCell = this.getPrefHeight()/size;
-        double widthCell = this.getPrefWidth()/size;
+        size = this.game.getBoard().getSizeX();
+        heightCell = this.getPrefHeight()/size;
+        widthCell = this.getPrefWidth()/size;
         this.tiles = new Tile[size][size];
         for(int i =0; i < size; i++) {
             this.tiles[i] = new Tile[size];
@@ -208,6 +211,14 @@ public class ReversiBoard extends GridPane {
             }
         }
     }
-
+    public double getHeightCell() {
+        return heightCell;
+    }
+    public double getWidthCell() {
+        return widthCell;
+    }
+    public int getSize() {
+        return size;
+    }
 }
 

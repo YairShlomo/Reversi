@@ -24,12 +24,12 @@ public class Game  {
     private int scorePl2;
 
 
-    public Game(Player pl1s,Player pl2s,Board boards ,GameLogic logicG,GameSetting gameSetting) {
+    public Game(Player pl1s,Player pl2s,Board boards ,GameLogic logicG,GameSetting gameSetting1) {
         pl1=pl1s;
         pl2=pl2s;
         board=boards;
         logic=logicG;
-        gameSetting=gameSetting;
+        gameSetting=gameSetting1;
         blackTurn=gameSetting.getBlackTurn();
         scorePl1=score(pl1.getSign());
         scorePl2=score(pl2.getSign());
@@ -69,11 +69,11 @@ public class Game  {
     }
 
     public void oppositeTurn() {
-        if (gameSetting.getBlackTurn()) {
-            gameSetting.setBlackTurn(false);
+        if (blackTurn) {
+            blackTurn=false;
             return;
         }
-        gameSetting.setBlackTurn(true);
+        blackTurn=true;
     }
 
     public int score(char sign) {

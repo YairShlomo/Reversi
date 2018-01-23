@@ -57,8 +57,7 @@ public class ConsolePlayer implements Player{
     public boolean checkNextTurn(GameLogic logic) {
         if (logic.optionalTurns((getSign())).size()==0) {
             System.out.println( "No possible moves. play passes back to other player. press any key to countinue" +"\n");
-            Scanner in = new Scanner(System.in);
-            String str = in.nextLine();
+
             return false;
         }
         return true;

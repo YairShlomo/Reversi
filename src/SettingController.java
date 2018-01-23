@@ -1,27 +1,18 @@
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
-/**
- * Created by Eilon on 1/13/2018.
- */
+
 public class SettingController implements Initializable {
     @FXML
     TextField inputBoardSize;
@@ -73,7 +64,7 @@ public class SettingController implements Initializable {
             handleTextPl2Color();
             handleBoardSize();
             if(playerAColor.toString().equals(playerBColor.toString())) {
-                this.showAlert("Please choose different colors");
+                this.showAlert("Colors must be different");
                 return;
             }
             gameSetting.writeToSettings(boardSize, playerAColor,playerBColor,blackTurn);
@@ -83,8 +74,8 @@ public class SettingController implements Initializable {
         try {
             Stage primaryStage = (Stage) this.done.getScene().getWindow();
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("ReversiGame.fxml"));
-            Scene scene = new Scene(root,600,400);
-            //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            Scene scene = new Scene(root,700,410);
+            scene.getStylesheets().add(getClass().getResource("GameDesign.css").toExternalForm());
             primaryStage.setTitle("Reversi Game");
             primaryStage.setScene(scene);
             primaryStage.show();

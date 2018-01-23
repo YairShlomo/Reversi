@@ -1,4 +1,5 @@
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Alert;
@@ -33,6 +35,7 @@ public class ReversiGame implements Initializable {
     private List<Point> avaiableMoves;
     private Game game;
     private boolean inGame;
+
     @FXML
     private javafx.scene.control.Label currPlayer;
     @FXML
@@ -60,19 +63,24 @@ public class ReversiGame implements Initializable {
     public void initialize(URL location, ResourceBundle
             resources) {
         game=initialGame();
-
         double gameSize = root.getPrefHeight();
         reversiBoard = new ReversiBoard(game, gameSize,gameSize);
         reversiBoard.setPrefWidth(600);
         reversiBoard.setPrefHeight(400);
         root.getChildren().add(0, reversiBoard);
         avaiableMoves = game.getLogic().optionalTurns(game.getCurPlayer().getSign());
-        reversiBoard.setOnMouseClicked(event -> {
-            System.out.println("sd");
+
+
+
+        this.reversiBoard.setOnMouseClicked(event -> {
+            int x=(int)Math.ceil(event.getX()/reversiBoard.getWidthCell());
+            int y=(int)Math.ceil(event.getY()/reversiBoard.getHeightCell());
             System.out.println(event.getX());
             System.out.println(event.getY());
+            System.out.println(x);
+            System.out.println(y);
             if (inGame) {
-                Point p = new Point((int) event.getX(), (int) event.getY());
+                Point p = new Point(x, y);
                 playOneTurn(p);
             }
             event.consume();
@@ -140,10 +148,12 @@ public class ReversiGame implements Initializable {
         System.out.print("clicked setting");
         Stage stage = (Stage) settingButt.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Setting.fxml"));
+
         try {
             AnchorPane root = (AnchorPane) loader.load();
             loader.setController(new SettingController());
             Scene settingsScene = new Scene(root, 600, 400);
+            settingsScene.getStylesheets().add(getClass().getResource("SettingDesign.css").toExternalForm());
             stage.setScene(settingsScene);
             stage.show();
         } catch (IOException e) {
@@ -151,75 +161,45 @@ public class ReversiGame implements Initializable {
         }
     }
 
-    public int playOneTurn(Point userPlay){
-        if   (!game.getCurPlayer().checkNextTurn(game.getLogic())) {
-            game.oppositeTurn();
-            return 1;
-        }
-        ConsolePlayer currPl=new ConsolePlayer(game.getCurPlayer().getSign());
-        if(!game.getLogic().checkValidPoint(userPlay,currPl.getSign())) {
-            //this.showAlert("This move is not Possible");
-            return  0;
-        }
-        if(game.getLogic().checkValidPoint(userPlay,currPl.getSign())) {
+    public void playOneTurn(Point userPlay) {
+
+        //ConsolePlayer currPl=new ConsolePlayer(game.getCurPlayer().getSign());
+        if (!checkValidMove(userPlay)) {
+            this.showAlert("This move is not Possible");
+            return;
+        } else {
             //this.noTurn = false;
             this.reversiBoard.lightTiles(false);
-            game.getLogic().checkFlipPieces(userPlay.getRowNum()-1,userPlay.getColNum()-1,currPl.oppositeSign(currPl.getSign()),true);
+            game.getBoard().setSign(userPlay.getRowNum() - 1, userPlay.getColNum() - 1,
+                    game.getCurPlayer().getSign());
+
+            game.getLogic().checkFlipPieces(userPlay.getRowNum() - 1, userPlay.getColNum()
+                    - 1, game.getCurPlayer().oppositeSign(game.getCurPlayer().getSign()), true);
             reversiBoard.update();
-            int score =game.score(currPl.getSign());
+            //int score =game.score(game.getCurPlayer().getSign());
             game.oppositeTurn();
-        }
-        /*
+            this.reversiBoard.lightTiles(true);
 
-                if(pressLoc == null) {
-            return;
         }
-        if(!this.nextPosMoves.contains(pressLoc)) {
-            this.showAlert("You can't do that move");
-            return;
-        }
-        if(this.nextPosMoves.contains(pressLoc)){
-            this.noTurn = false;
-            int score = this.game.playOneTurn(pressLoc);
-            this.game.setScoreAfterMove(score);
-            this.gameBoard.unlightTiles();
-            this.gameBoard.flipOnBoardFX();
-            this.game.changeTurn();
-        }
+        if (!game.getCurPlayer().checkNextTurn(game.getLogic())) {
+            game.setCountMoveTurn(game.getCountMoveTurn() + 1);
+            game.oppositeTurn();
+            this.reversiBoard.lightTiles(true);
 
-        if(this.game.getBoard().isBoardFull()) {
-            //Show end game message
-            this.showAlert("Game ended");
-            return;
-        }
-        List<Pair<Integer, Integer>> posMoves = this.game.possibleMoves(this.game.getCurPlayer());
-        if(posMoves.isEmpty()){
-            this.showAlert("You have no move.");
-            this.game.changeTurn();
-f            posMoves = this.game.possibleMoves(this.game.getCurPlayer());
-            if(posMoves.isEmpty()) {
-                this.showAlert("You have no move, game ended.");
-                //End game .
+            if (!game.getCurPlayer().checkNextTurn(game.getLogic())) {
+                game.setCountMoveTurn(game.getCountMoveTurn() + 1);
+                game.oppositeTurn();
             }
         }
-        this.nextPosMoves = this.game.possibleMoves(this.game.getCurPlayer());
-        this.gameBoard.lightTiles();
-        this.setTextLabels();
-         */
-
-
+        if (game.getCountMoveTurn() > 1) {
+            inGame = false;
+            winnerMessage();
+            System.exit(0) ;
+        }
+        setLabels();
         game.setCountMoveTurn(0);
         //board.printBoard();
-        avaiableMoves= game.getLogic().optionalTurns(currPl.getSign());
-        if(userPlay==null) {
-            return 0;
-        }
-        if(!game.getLogic().checkValidPoint(userPlay,currPl.getSign())) {
-            return 0;
-        }
-        board.setSign(userPlay.getRowNum()-1,userPlay.getColNum()-1,currPl.getSign());
-        game.oppositeTurn();
-        return 0;
+
     }
     public Game initialGame() {
         inGame=false;
@@ -287,5 +267,31 @@ f            posMoves = this.game.possibleMoves(this.game.getCurPlayer());
         } else {
             currPlayer.setText("CurrentPlayer: Player 2");
         }
+    }
+    public boolean checkValidMove(Point userPlay) {
+        avaiableMoves = game.getLogic().optionalTurns(game.getCurPlayer().getSign());
+        for (Point p : avaiableMoves) {
+            if(p.isEqual(userPlay)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    public void winnerMessage() {
+        if (game.score(game.getPlayer1().getSign())>game.score(game.getPlayer2().getSign())) {
+            showAlert("Player '"+game.getPlayer1().getSign()+"' wins!"+"\n");
+            return;
+        }
+        if (game.score(game.getPlayer2().getSign())>game.score(game.getPlayer1().getSign())) {
+            showAlert("Player '"+game.getPlayer2().getSign() + "' wins!"+"\n");
+            return;
+        }
+        showAlert("Great Game ,it's a tie!");
     }
 }

@@ -17,4 +17,11 @@ public class Point {
     public int  getColNum() {
         return colNum;
     }
+    public boolean isEqual(Point other) {
+        if (rowNum == other.getRowNum() && colNum == other.getColNum()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

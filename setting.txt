@@ -1,3 +1,3 @@
 OpeningPlayer:true
 Colors:0x000000ff,0xffff00ff
-BoardSize:3
+BoardSize:8

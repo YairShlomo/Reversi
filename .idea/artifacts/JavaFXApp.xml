@@ -7,9 +7,6 @@
       </options>
     </properties>
     <root id="root">
-      <element id="archive" name="JavaFXApp.jar">
-        <element id="module-output" name="Reversi" />
-      </element>
       <element id="module-output" name="Reversi" />
     </root>
   </artifact>
